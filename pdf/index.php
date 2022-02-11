@@ -31,6 +31,7 @@ class PDF extends FPDF{
 	    $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
 	}
 	function headerTable(){
+		$this->setX();
 		$this->SetFont("Times",'B',9);
 		$this->Cell(8,5,'SN',1,0,'C');
 		$this->Cell(30,5,'REG NO',1,0,'C');

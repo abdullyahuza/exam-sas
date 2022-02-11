@@ -77,7 +77,7 @@ function allocateStudent($dbconn, $student, $venue, $courseCode){
 	if($student === '') return 0;
 	$freeSeats = availableSeatsInVenueArray($venue);	//array
 	$seatNo = null;
-	if(count($freeSeats) > 1){
+	if(count($freeSeats) >= 1){
 		$seatNo = $freeSeats[rand(0,count($freeSeats)-1)]; //random seat base on availble seats
 	}else{
 		$seatNo = 1;
@@ -100,9 +100,12 @@ function allocateStudents($dbconn, $allStudents, $venue, $courseCode, $venuesche
 	for($i=0;$i<count($allStudents);$i++){
 		echo "Allocating ". $allStudents[$i]; 
 		
-		while(checkAllocationInAllVenues($dbconn, $allStudents[$i], $venuescheck) !== TRUE){ //if student is not allocated
-			allocateStudent($dbconn, $allStudents[$i], $venue, $courseCode);
+		// while(checkAllocationInAllVenues($dbconn, $allStudents[$i], $venuescheck) !== TRUE){ //if student is not allocated
+		// 	allocateStudent($dbconn, $allStudents[$i], $venue, $courseCode);
 
+		// }
+		if(checkAllocationInAllVenues($dbconn, $allStudents[$i], $venuescheck) !== TRUE){
+				allocateStudent($dbconn, $allStudents[$i], $venues, $course_code);
 		}
 	}
 }	
